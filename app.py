@@ -72,6 +72,7 @@ def submit_order():
     order_data = request.get_json()
     customer_info = order_data.get('customer', {})
     ordered_items = order_data.get('items', [])
+    order_notes = customer_info.get('orderNotes', '')  # Get order notes
     timestamp = datetime.now().isoformat()  # Use ISO-8601 format for Power Automate
 
     # Concatenate full address for order logging
@@ -117,6 +118,7 @@ def submit_order():
             "zipstandard": customer.zipstandard,
             "phone": customer.phone,
             "client": customer.client,
+            "orderNotes": order_notes,  # Include order notes
         },
         "items": [
             {

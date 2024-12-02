@@ -152,6 +152,9 @@ function checkout(event) {
   if (checkoutButton.disabled) return; // Prevent further action if already disabled
   checkoutButton.disabled = true;
 
+  // Collect data from form inputs
+  const orderNotes = document.getElementById("orderNotes").value; // Capture the notes field
+
   const orderData = {
     customer: {
       name: document.getElementById("customerName").value,
@@ -162,6 +165,7 @@ function checkout(event) {
       zipstandard: document.getElementById("customerZip").value,
       phone: document.getElementById("customerPhone").value,
       client: document.getElementById("customerClient").value,
+      orderNotes: orderNotes, // Include order notes
     },
     items: cart.map((item) => ({
       title: item.title,
