@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <h1>Your Cart</h1>
+
+    <!-- Cart Items Section -->
+    <div id="cart-items">
+      <p id="empty-cart-message" style="display: none">Cart is Empty</p>
+    </div>
+
+    <!-- Cart Action Buttons -->
+    <div class="cart-buttons">
+      <button id="back-btn" onclick="goBack()">Back to Shop</button>
+      <button id="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+    </div>
+
+    <!-- Checkout Form -->
+    <form id="checkout-form" method="POST" onsubmit="checkout(event)">
+      <input
+        type="text"
+        id="customerName"
+        name="customerName"
+        placeholder="Name"
+        required
+      />
+      <input
+        type="email"
+        id="customerEmail"
+        name="customerEmail"
+        placeholder="Email"
+      />
+      <input
+        type="text"
+        id="customerAddress"
+        name="customerAddress"
+        placeholder="Address"
+      />
+      <input
+        type="text"
+        id="customerCity"
+        name="customerCity"
+        placeholder="City"
+      />
+      <input
+        type="text"
+        id="customerState"
+        name="customerState"
+        placeholder="State"
+      />
+      <input
+        type="text"
+        id="customerZip"
+        name="customerZip"
+        placeholder="ZIP"
+      />
+      <input
+        type="text"
+        id="customerPhone"
+        name="customerPhone"
+        placeholder="Phone"
+      />
+      <input
+        type="text"
+        id="customerClient"
+        name="customerClient"
+        placeholder="Client"
+        required
+      />
+      <button type="submit" id="checkout-btn" disabled>Checkout</button>
+    </form>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

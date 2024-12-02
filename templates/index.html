@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CBL Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+  </head>
+  <body>
+    <h1>COREBIOLABS SUPPLY ORDER</h1>
+
+    <!-- Styled 'Go to Cart' button at the top-right corner -->
+    <a href="{{ url_for('cart') }}" class="go-to-cart-button" id="go-to-cart-button" disabled>
+  Go to Cart
+  <span id="cart-counter" class="cart-counter">0</span>
+</a>
+
+
+    <div id="items">
+      {% for item in items %}
+      <div class="item">
+        <!-- Display the item's image with fallback in case of an error -->
+        <img
+          src="{{ item.image or url_for('static', filename='PLACEHOLDER.jpg') }}"
+          alt="{{ item.title }}"
+          class="item-image"
+          onerror="this.onerror=null; this.src='{{ url_for('static', filename='PLACEHOLDER.jpg') }}';"
+        />
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+
+        <!-- Stock Status -->
+        <p class="{{ 'in-stock' if item.itemstatus == 'In Stock' else 'out-of-stock' }}">
+          {{ item.itemstatus }}
+        </p>
+
+        <!-- Container Quantity Dropdown if there are multiple options -->
+        {% if ',' in item.container_qty %}
+        <div class="dropdown-container">
+          <label for="containerQty-{{ item.id }}">Container Qty:</label>
+          <select id="containerQty-{{ item.id }}">
+            {% for qty in item.container_qty.split(',') %}
+            <option value="{{ qty }}">{{ qty }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+
+        <!-- Order Amount Dropdown -->
+        <div class="dropdown-container">
+          <label for="orderAmount-{{ item.id }}">Order Amount:</label>
+          <select id="orderAmount-{{ item.id }}">
+            {% for amount in range(1, 101) %}
+            <option value="{{ amount }}">{{ amount }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <button
+          onclick="addToCart({{ item.id }}, '{{ item.title }}', '{{ item.itemstatus }}')"
+          {% if item.itemstatus == 'Out of Stock' %} disabled {% endif %}
+          class="{{ 'add-to-cart' if item.itemstatus == 'In Stock' else 'add-to-cart disabled' }}"
+        >
+          Add to Cart
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
