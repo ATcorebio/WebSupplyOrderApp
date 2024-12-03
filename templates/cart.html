@@ -11,17 +11,19 @@
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
   </head>
   <body>
-    <h1>Your Cart</h1>
+    <header class="sticky-header">
+      <button id="back-btn" onclick="goBack()" class="header-button">
+        Back to Shop
+      </button>
+      <h1>Your Cart</h1>
+      <button id="clear-cart-btn" onclick="clearCart()" class="header-button">
+        Clear Cart
+      </button>
+    </header>
 
     <!-- Cart Items Section -->
     <div id="cart-items">
       <p id="empty-cart-message" style="display: none">Cart is Empty</p>
-    </div>
-
-    <!-- Cart Action Buttons -->
-    <div class="cart-buttons">
-      <button id="back-btn" onclick="goBack()">Back to Shop</button>
-      <button id="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
     </div>
 
     <!-- Checkout Form -->
